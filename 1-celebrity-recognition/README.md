@@ -65,6 +65,8 @@ US East (N. Virginia) | [![Create IAM Role for SageMaker us-east-1](http://docs.
 
 8. Go back to Jupyter home screen by clicking on the Jupyter logo on the top left and refresh to see the folder celebrity-recognition.
 
+![](assets/git-folder.png)
+
 9. Click on celebrity-recognition, then 1-celebrity-recognition and then CelebrityRecognition.ipynb to open the notebook.
 
 ![](assets/m1-notebook.png)
