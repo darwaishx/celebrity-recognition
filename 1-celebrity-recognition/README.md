@@ -10,7 +10,13 @@ In this step we will create a SageMaker Notebook instance using CloudFormation t
 
 Region| Launch
 ------|-----
-US East (N. Virginia) | [![Create IAM Role for SageMaker us-east-1](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/images/cloudformation-launch-stack-button.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?stackName=SageMaker&templateURL=https://s3.amazonaws.com/ki-reinvent-content/SageMaker.yaml)
+US East (N. Virginia) | [![Create SageMaker Instance](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/images/cloudformation-launch-stack-button.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?stackName=SageMaker&templateURL=https://s3-eu-west-1.amazonaws.com/aws-whoiswho-deploy-us-east-1/SageMaker.yaml)
+
+US East (Ohio) | [![Create SageMaker Instance](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/images/cloudformation-launch-stack-button.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks/create/review?stackName=SageMaker&templateURL=https://s3-eu-west-1.amazonaws.com/aws-whoiswho-deploy-eu-east-2/SageMaker.yaml)
+
+US West (Oregon) | [![Create SageMaker Instance](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/images/cloudformation-launch-stack-button.png)](https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/create/review?stackName=SageMaker&templateURL=https://s3-eu-west-1.amazonaws.com/aws-whoiswho-deploy-us-west-2/SageMaker.yaml)
+
+EU (Ireland) | [![Create SageMaker Instance](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/images/cloudformation-launch-stack-button.png)](https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/create/review?stackName=SageMaker&templateURL=https://s3-eu-west-1.amazonaws.com/aws-whoiswho-deploy-eu-west-1/SageMaker.yaml)
 
 
 2. Under Create stack, check the checkbox for "I acknowledge that AWS CloudFormation might create IAM resources with custom names" and click Create.
