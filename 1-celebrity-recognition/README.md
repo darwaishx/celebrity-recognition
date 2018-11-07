@@ -35,41 +35,41 @@ EU (Ireland) | [![Create SageMaker Instance](http://docs.aws.amazon.com/AWSCloud
 
 ## Open SageMaker Instance
 
-1. After CloudFormation template is complete, Click on the Output tab and click on the SageMakerInstanceName.
+1. After CloudFormation template is complete, Click on the Output tab and click on the link for NotebookInstanceName.
 
 ![](assets/cf-4.png)
 
-2. Click on the Open button and you will be redirected to Jupyter UI.
+2. From your SageMaker instance click on the Open button.
 
 ![](assets/cf-5.png)
 
-4. You will now be redirected to the Jupyter UI.
+3. You will now be redirected to the Jupyter UI.
 
 ![](assets/jupyter-home.png)
 
-5. Click on New and then Terminal.
+4. Click on New and then Terminal.
 
 ![](assets/sagemaker-new-terminal.png)
 
-6. You should now see Terminal like below:
+5. You should now see Terminal like below:
 
 ![](assets/sagemaker-terminal.png)
 
-7. In the terminal type:
+6. In the terminal type:
 - cd SageMaker
 - git clone https://github.com/darwaishx/celebrity-recognition.git
 
 ![](assets/sagemaker-gitclone.png)
 
-8. Go back to Jupyter home screen by clicking on the Jupyter logo on the top left and refresh to see the folder celebrity-recognition.
+7. Go back to Jupyter home screen by clicking on the Jupyter logo on the top left and refresh to see the folder celebrity-recognition.
 
 ![](assets/git-folder.png)
 
-9. Click on celebrity-recognition, then 1-celebrity-recognition and then CelebrityRecognition.ipynb to open the notebook.
+8. Click on celebrity-recognition, then 1-celebrity-recognition and then CelebrityRecognition.ipynb to open the notebook.
 
 ![](assets/m1-notebook.png)
 
-10. Follow the directions in the notebook to run each cell and review it's output.
+9. Follow the directions in the notebook to run each cell and review it's output.
 
 ## Completion
 You have successfully use Amazon Rekognition to identify celebrities in images an videos. In the next module, [Recognize Custom Celebrities ](../2-recognize-custom-celebrities), you will learn how to recognize your custom celebrities in the images and videos.
