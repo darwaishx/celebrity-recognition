@@ -4,7 +4,9 @@ In this module you will learn about Celebrity API of Amazon Rekognition which ca
 
 ## Create SageMaker Instance
 
-In this step we will create a SageMaker Notebook instance using CloudFormation template. SageMaker is not required to use Rekognition, but we will use SageMaker as IDE for quick prototyping and to learn various Rekognition APIs.
+In this step we will create a SageMaker Notebook instance using CloudFormation template.
+
+*** SageMaker is not required to use Rekognition, but we will use SageMaker as IDE for quick prototyping and to learn various Rekognition APIs. ***
 
 1. Click on one of the buttons below to launch CloudFormation template in an AWS region.
 
@@ -26,27 +28,20 @@ EU (Ireland) | [![Create SageMaker Instance](http://docs.aws.amazon.com/AWSCloud
 ![](assets/cf-2.png)
 
 
-4. Click on the checkbox next to the stack to see additional details below.
+4. Click on the checkbox next to the stack to see additional details below and wait until CloudFormation stack has the status CREATE_COMPLETE.
 
 ![](assets/cf-3.png)
 
 
-5. Wait until CloudFormation stack has the status CREATE_COMPLETE.
+## Open SageMaker Instance
+
+1. After CloudFormation template is complete, Click on the Output tab and click on the SageMakerInstanceName.
 
 ![](assets/cf-4.png)
 
+2. Click on the Open button and you will be redirected to Jupyter UI.
 
-## Open SageMaker Instance
-
-1. Go to SageMaker in AWS Console at https://console.aws.amazon.com/sagemaker/
-
-2. Click on Notebook instances in the left navigation.
-
-![](assets/sm-home.png)
-
-3.  You should see list of SageMaker instances. Click on the Open link next to the SageMaker instance.
-
-![](assets/sm-instances.png)
+![](assets/cf-5.png)
 
 4. You will now be redirected to the Jupyter UI.
 
