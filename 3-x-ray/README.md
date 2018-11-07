@@ -113,11 +113,10 @@ In this section we will modify the HTML Client to point it to the REST endpoint 
 
 ![](assets/ClientHtml4.png)
 
-6. Open **xray.html** on your local machine using a text editor of your choice. Search for the following line in **xray.html** code. We need to update **apiGatewayUrl** and **apiGatewayUrlVideo** variables to correct URLs.
+6. Open **xray.html** on your local machine using a text editor of your choice. Search for the following line in **xray.html** code. We need to update **apiGatewayHost** to point to API Gateway host.
 ```
-var apiGatewayUrl ='TODO: Enter the path to your API Gateway POST endpoint /celebrity';
+var apiGatewayHost = 'TODO: Enter API Gateway Host';
 
-var apiGatewayUrlVideo= 'TODO: Enter the path to your API Gateway GET endpoint /celebrities';
 ```
 7. We need to get the REST endpoint from API Gateway. Go to Amazon API Gateway in AWS Console at https://console.aws.amazon.com/apigateway/.
 
@@ -125,21 +124,13 @@ var apiGatewayUrlVideo= 'TODO: Enter the path to your API Gateway GET endpoint /
 
 ![](assets/apigw1.png)
 
-9. As shown in following screen shot, click on **Stages** in left menu under your **API** name. Then click **Prod** -> **GET** under **Stages** as shown in screen shot. Copy the value of **Invoke URL**. This is the endpoint your Client HTML variable **apiGatewayUrl** should point to. Follow the click sequence as numbered in following screen shot
+9. As shown in following screen shot, click on **Stages** in left menu under your **API** name. Then click **Prod**. Copy the API Gateway host from **Invoke URL**. This is the endpoint your Client HTML variable **apiGatewayHost** should point to. Follow the click sequence as numbered in following screen shot. Underlined text in red is API Gateway host. Make sure you just copy the host and not the whole URL.
 
 ![](assets/apigw2.png)
 
-10. Go to the text editor on your local machine where **xray.html** was being edited in **Step 6**. Replace the text **var apiGatewayUrl =TODO: Enter the path to your API Gateway endpoint** with the recently copied API Gateway endpoint from **Step 9**.
+10. Go to the text editor on your local machine where **xray.html** was being edited in **Step 6**. Replace the text **var apiGatewayHost =TODO: Enter API Gateway Host** with the recently copied API Gateway host from **Step 9**.
 ```
-apiGatewayUrl = 'https://ddh2eemclh.execute-api.eu-west-1.amazonaws.com/Prod/celebrities'
-```
-11. As shown in following screen shot, click on **Stages** in left menu under your **API** name. Then click **Prod** -> **POST** under **Stages** as shown in screen shot. Copy the value of **Invoke URL**. This is the endpoint your Client HTML variable **apiGatewayUrlVideo** should point to. Follow the click sequence as numbered in following screen shot
-
-![](assets/apigw3.png)
-
-12.  Replace the text **var apiGatewayUrlVideo =TODO: Enter the path to your API Gateway endpoint** with the recently copied API Gateway endpoint from **Step 11**.
-```
-apiGatewayUrlVideo = 'https://ddh2eemclh.execute-api.eu-west-1.amazonaws.com/Prod/celebrity'
+apiGatewayHost = 'ub55zz2yhi'
 ```
 
 13. Save the file **xray.html**.
