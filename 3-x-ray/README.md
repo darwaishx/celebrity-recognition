@@ -15,6 +15,8 @@ In this section we will deploy the solution using CloudFormation template. This 
 
 1. Click on **Launch Stack** button below to launch CloudFormation template in US East AWS region.
 
+:warning: **Make sure you launch the Stack in the same region you launched stack in Celebrity Recognition Lab earlier**
+
 Region| Launch
 ------|-----
 US East (N. Virginia) | [![Launch Who-is-Who Workshop in us-east-1](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/images/cloudformation-launch-stack-button.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?stackName=X-Ray&templateURL=https://s3.us-east-1.amazonaws.com/who-is-who-ws-us-east-1/who-is-who-deploy.yaml)
