@@ -73,5 +73,7 @@ EU (Ireland) | [![Create SageMaker Instance](http://docs.aws.amazon.com/AWSCloud
 
 ![](assets/m1-celeb.png)
 
+![](assets/m1-celeb-video.png)
+
 ## Completion
 You have successfully used Amazon Rekognition to identify celebrities in images an videos. In the next module, [Recognize Custom Celebrities ](../2-recognize-custom-celebrities), you will learn how to recognize your custom celebrities in the images and videos.
