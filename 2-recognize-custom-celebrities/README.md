@@ -11,5 +11,11 @@ In this module you will learn how to use Amazon Rekognition to recognize custom 
 
 ![](assets/notebook-home.png)
 
+4. You will see custom celebrities recognized in the image and video as below.
+
+![](assets/custom-image.png)
+
+![](assets/custom-video.png)
+
 ## Completion
 You have successfully created Rekognition collection, indexed faces and recognized custom celebrities in images and videos. In the next module, [X-Ray](../3-x-ray), you will learn how to combine both RecognizeCelebrity and SearchFaceByImage to build a Prime Video X-Ray style app which can recognize both mainstream and custom celebrities.
