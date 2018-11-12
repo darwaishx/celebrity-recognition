@@ -4,9 +4,6 @@ In this module you will learn about Celebrity API of Amazon Rekognition which ca
 
 ## Create and Instance to run Jupyter Notebook
 
-In this step we will create a SageMaker Notebook instance using CloudFormation template.
-
-
 In this step we will create a SageMaker Notebook instance using CloudFormation template so we can use Jupyter Notebook to prototype.
 
 ***SageMaker or Jupyter Notebook is not required to use Rekognition, but we will use Jupyter as IDE for quick prototyping and to learn various Rekognition APIs.***
