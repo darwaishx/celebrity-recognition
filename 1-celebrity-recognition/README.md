@@ -2,11 +2,14 @@
 
 In this module you will learn about Celebrity API of Amazon Rekognition which can recognize thousands of celebrities in a wide range of categories, such as entertainment and media, sports, business, and politics. With Amazon Rekognition, you can recognize celebrities in images and in stored videos. You can also get additional information for recognized celebrities.
 
-## Create SageMaker Instance
+## Create and Instance to run Jupyter
 
 In this step we will create a SageMaker Notebook instance using CloudFormation template.
 
-*** SageMaker is not required to use Rekognition, but we will use SageMaker as IDE for quick prototyping and to learn various Rekognition APIs. ***
+
+In this step we will create a SageMaker Notebook instance using CloudFormation template so we can use Jupyter Notebook to prototype.
+
+***SageMaker or Jupyter Notebook is not required to use Rekognition, but we will use Jupyter as IDE for quick prototyping and to learn various Rekognition APIs.***
 
 1. Click on one of the buttons below to launch CloudFormation template in an AWS region.
 
