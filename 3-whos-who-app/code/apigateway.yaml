@@ -1,0 +1,131 @@
+openapi: "3.0.1"
+info:
+  title: "Rekognition"
+  version: "2018-10-24T08:06:03Z"
+servers:
+- url: "https://a111111111.execute-api.us-east-1.amazonaws.com/{basePath}"
+  variables:
+    basePath:
+      default: "/prod"
+paths:
+  /ki-rekognition-celebrity:
+    x-amazon-apigateway-any-method:
+      responses:
+        200:
+          description: "200 response"
+          content: {}
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:111111111111:function:ki-rekognition-celebrity/invocations"
+        responses:
+          .*:
+            statusCode: "200"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        type: "aws_proxy"
+  /celebrities:
+    get:
+      responses:
+        200:
+          description: "200 response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Empty"
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:111111111111:function:ki-rekognition-celebrity/invocations"
+        responses:
+          default:
+            statusCode: "200"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        contentHandling: "CONVERT_TO_TEXT"
+        type: "aws_proxy"
+    options:
+      responses:
+        200:
+          description: "200 response"
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: "string"
+            Access-Control-Allow-Methods:
+              schema:
+                type: "string"
+            Access-Control-Allow-Headers:
+              schema:
+                type: "string"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Empty"
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        requestTemplates:
+          application/json: "{\"statusCode\": 200}"
+        passthroughBehavior: "when_no_match"
+        type: "mock"
+  /celebrity:
+    post:
+      responses:
+        200:
+          description: "200 response"
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: "string"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Empty"
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:111111111111:function:ki-rekognition-celebrity/invocations"
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        contentHandling: "CONVERT_TO_TEXT"
+        type: "aws_proxy"
+    options:
+      responses:
+        200:
+          description: "200 response"
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: "string"
+            Access-Control-Allow-Methods:
+              schema:
+                type: "string"
+            Access-Control-Allow-Headers:
+              schema:
+                type: "string"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Empty"
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        requestTemplates:
+          application/json: "{\"statusCode\": 200}"
+        passthroughBehavior: "when_no_match"
+        type: "mock"
+components:
+  schemas:
+    Empty:
+      title: "Empty Schema"
+      type: "object"

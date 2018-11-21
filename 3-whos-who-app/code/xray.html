@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Rekognition Image Analysis</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+  <style>
+    html,body {
+    height: 96%;
+    background-color: #000000;
+    color: #888;
+    }
+  .topHeader
+    {
+      background-color: #000000;
+      padding: 10px;
+      border-bottom: solid 1px #282828;
+      color: white
+    }
+    .imgCell{
+      width: 800px;
+    }
+    .links{
+      max-height: 100%;
+      overflow-y: scroll;
+    }
+    .labels{
+      margin: 5px;
+      padding: 10px;
+    }
+
+    .navbar.bg-dark {
+      background-color: #060606 !important;
+      border: 1px solid #000000;
+    }
+    .nav-tabs {
+        margin-bottom: 0;
+    }
+    .nav-tabs .nav-link.active, .nav-pills .nav-link.active {
+        background-color: #2A9FD6;
+        color:#ddd;
+        border-color:  #282828;
+        border: 1px solid transparent;
+        border-top-left-radius: 0.25rem;
+        border-top-right-radius: 0.25rem;
+        border-bottom: 1px solid #282828;
+        font-weight: 500;
+    }
+    .nav-tabs {
+        border-bottom: 1px solid #282828;
+    }
+    .nav-link {
+        color: rgba(255,255,255,0.5);
+    }
+    .nav-tabs .nav-link, .nav-pills .nav-link {
+        color: #fff;
+    }
+    .btn-primary {
+        color: #fff;
+        background-color: #2A9FD6;
+        border-color: #2A9FD6;
+    }
+    #videoContainer {
+      position: relative;
+    }
+    #box {
+      width: 100px;
+      height: 50px;
+      background: red;
+      position: absolute;
+      z-index:100;
+      left: 0;
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid h-100">
+      <!--Top Header-->
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <a class="navbar-brand" href="#">
+              X-ray   &nbsp;&nbsp;|
+          </a>
+        <a class="nav-link active" href="#"><strong>Home</strong></a>
+      </nav>
+     <div class="row topHeader">
+          <div class="col-md-12">
+              <!--<h4>Amazon Rekognition demo for OCTANK</h4>-->
+          </div>
+     </div>
+     <div class="row">
+          <div class="col">&nbsp;&nbsp;</div>
+     </div>
+     <div class="container">
+        <div class="col">
+          This demo shows how we can integrate Amazon Rekognition Service to identify custom and mainstream celebrities. This is an end to end demo to recognize
+           mainstream and custom celebrities. We have used RecognizeCelebrities and SearchFacesByImage APIs to recognize mainstream and custom celebrities.
+          We will also demonstrate how to analyze a video using Rekognition and identify people in it.
+        </div>
+     </div>
+     <div class="row">
+        <div class="col">&nbsp;&nbsp;</div>
+   </div>
+     <div class="container">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="imageRek-tab" data-toggle="tab" href="#imageRek" role="tab" aria-controls="imageRek" aria-selected="true">Image Recognition</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="videoRek-tab" data-toggle="tab" href="#videoRek" role="tab" aria-controls="videoRek" aria-selected="false">Video Analysis</a>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="imageRek" role="tabpanel" aria-labelledby="imageRek-tab">
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-12">
+                    <div id="videoContainer" class="embed-responsive embed-responsive-16by9" style="width:1000px;">
+                      <!--<div id="box"></div>-->
+                      <video id="imgVideo"  style="position:absolute; top:20px; left:40px;  width:100%; height:100%;" >
+                        <source src=media.mp4 type=video/mp4 crossorigin="anonymous">
+                      </video>
+                      <svg id="svg" style="position:absolute; top:20px; left:40px; width:100%; height:100%; z-index:1;">
+                        <!--<rect id="svg-rect" x="0" y="0" width="150" height="150" style="fill:blue;stroke:red;stroke-width:2;fill-opacity:0;z-index:2;" />-->
+                      </svg>
+
+                    </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-lg-12">&nbsp;</div>
+              </div>
+              <div class="row">
+                  <div class="col-lg-12">
+                    <button type="button" id="rekPlayButton" onclick="play()" class="btn btn-primary">Play</button>&nbsp;
+                    <button type="button" id="rekFunction" onclick="rek()" class="btn btn-primary">Recognize Celebrities</button>
+					<button type="button" id="imgPause" onclick="pause()" class="btn btn-primary">Pause</button>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="videoRek" role="tabpanel" aria-labelledby="videoRek-tab">
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-12">
+                    <div id="videoContainerAnalysis" class="embed-responsive embed-responsive-16by9" style="width:1000px;">
+                      <!--<div id="box"></div>-->
+                      <video id="videoAnalysis"  style="position:absolute; top:20px; left:40px;  width:100%; height:100%;">
+                        <source src=media.mp4 type=video/mp4>
+                      </video>
+                      <svg id="svgVideo" style="position:absolute; top:20px; left:40px; width:100%; height:100%; z-index:1;">
+                        <!--<rect id="svg-rect" x="0" y="0" width="150" height="150" style="fill:blue;stroke:red;stroke-width:2;fill-opacity:0;z-index:2;" />-->
+                      </svg>
+
+                    </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-lg-12">&nbsp;</div>
+              </div>
+              <div class="row">
+                  <div class="col-lg-12">
+                      <button type="button" id="rekVideo" onclick="rekVideo()" class="btn btn-primary">Recognize Celebrities</button>
+					  <button type="button" id="videoPause" onclick="pause()" class="btn btn-primary">Pause</button>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+     </div>
+
+  </div>
+  <canvas id="canvas" width="640" height="480" style="visibility: hidden" crossorigin="anonymous"></canvas>
+
+  <!-- start the script ... within that declare variables as follows... -->
+    <script>
+
+	var apiGatewayHost = 'Invoke URL for your API Gateway';
+
+
+	var apiGatewayUrl = apiGatewayHost+'/celebrity';
+	var apiGatewayUrlVideo = apiGatewayHost+'/celebrities?v=media.mp4';
+
+    //var video=document.querySelector('video');
+    var video=document.getElementById('imgVideo');
+    var canvas=document.querySelector('canvas');
+    var context=canvas.getContext('2d');
+    var w,h,ratio;
+    var svg = document.getElementById("svg");
+    var imgVideo = document.getElementById("videoContainer");
+    //var imgRect = document.getElementById("svg-rect");
+    var svgVideo = document.getElementById("svgVideo");
+    var videoContainerAnalysis = document.getElementById("videoContainerAnalysis");
+    var videoAnalysis = document.getElementById('videoAnalysis');
+    var videoWidth = imgVideo.clientWidth;
+    var videoHeight = imgVideo.clientHeight;
+    var videoAWidth = videoContainerAnalysis.clientWidth;
+    var videoAHeight = videoContainerAnalysis.clientHeight;
+    var dict = {};
+    videoAnalysis.ontimeupdate = function() {
+      onVideoTimeUpdate();
+    }
+
+    var boundingBox={
+      "Width": 0,
+      "Height": 0,
+      "Left": 0,
+      "Top": 0
+    }
+
+    //add loadedmetadata which will helps to identify video attributes
+
+    $(function() {
+      $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        /*video.pause();
+        videoAnalysis.pause();
+        removeBoxFromDisplay(svg);
+        removeBoxFromDisplay(svgVideo);*/
+		pause();
+
+        })
+    });
+
+   function removeBoxFromDisplay(control){
+     var displayedRect = document.querySelectorAll("rect");
+     var displayedText = document.querySelectorAll("text");
+     for (i = 0; i < displayedRect.length; i++) {
+      if(displayedRect[i].parentNode){
+        displayedRect[i].parentNode.removeChild(displayedRect[i]);
+        displayedText[i].parentNode.removeChild(displayedText[i]);
+      }
+     }
+   }
+
+    video.addEventListener('loadedmetadata', function() {
+      ratio = video.videoWidth/video.videoHeight;
+      w = video.videoWidth;
+      h = parseInt(w/ratio,10);
+      canvas.width = w;
+      canvas.height = h;
+    },false);
+
+    function play(){
+      video.play()
+        var displayedRect = document.querySelectorAll("rect");
+
+        removeBoxFromDisplay(svg);
+        //var
+        /*for (i = 0; i < displayedRect.length; i++) {
+          document.getElementById('svg').removeChild(displayedRect[i]);
+        }*/
+
+    }
+
+	function pause(){
+		video.pause();
+        videoAnalysis.pause();
+        removeBoxFromDisplay(svg);
+        removeBoxFromDisplay(svgVideo);
+	}
+
+
+    function rek() {
+      video.pause();
+	  if(apiGatewayHost.includes("TODO:"))
+		{
+			alert("Error: Invalid API endpoint. Please configure the correct endpoint.");
+			return false;
+		}
+      context.fillRect(0,0,w,h);
+      context.drawImage(video,0,0,w,h);
+
+      var dataURL = canvas.toDataURL('image/jpeg', 1.0);
+      dataURL = dataURL.replace(/^data:image\/(png|jpg|jpeg);base64,/, "")
+
+      console.log(dataURL);
+
+      var apiUrl = apiGatewayUrl;
+
+      $.ajax({
+         type: "POST",
+         url: apiUrl,
+         data: dataURL
+        }).then(function(data) {
+          //alert(JSON.stringify(data))
+          console.log(JSON.stringify(data));
+          var outputText = JSON.stringify(data).replace(/\\/g, "");
+          var jsonResponse = JSON.parse(data.replace(/\\/g, ""));
+          $( "#celebrities" ).text(outputText);//TOD: remove this line as we are not displaying the information on screen OR assing it to correct divs
+
+          //scaleFactor = 1;
+
+          drawBoxOnFace(jsonResponse.CelebrityFaces, svg);
+
+
+
+
+
+          //console.log("X:"+boundingBox.Left * videoWidth );
+          //console.log("Y:"+boundingBox.Top * videoHeight );
+          //console.log("Width:"+boundingBox.Width * videoWidth );
+          //console.log("Height:"+boundingBox.Height * videoHeight );
+
+
+          //imgRect.setAttribute("x",boundingBox.Left * videoWidth );
+          //imgRect.setAttribute("y",boundingBox.Top * videoHeight);
+          //imgRect.setAttribute("width",boundingBox.Width * videoWidth );
+          //imgRect.setAttribute("height",boundingBox.Height * videoHeight );
+
+
+
+           //context.beginPath();
+           //context.rect(boundingBox.Left * videoWidth * scaleFactor, boundingBox.Top * h * scaleFactor, w * scaleFactor * boundingBox.Width, h * scaleFactor * boundingBox.Height);
+           //context.lineWidth = 5;
+           //context.strokeStyle = 'red';
+           //context.stroke();
+
+          window.celebData = data;
+        });
+    }
+
+    function drawBoxOnFace(faces, svgArg, name){
+        var svgns = "http://www.w3.org/2000/svg";
+        scaleFactor = 1;
+
+        for(var i in faces){
+            boundingBox.Width=faces[i].BoundingBox.Width;
+            boundingBox.Height=faces[i].BoundingBox.Height;
+            boundingBox.Left=faces[i].BoundingBox.Left;
+            boundingBox.Top=faces[i].BoundingBox.Top;
+            var rect = document.createElementNS(svgns, 'rect');
+            rect.setAttributeNS(null, 'x', boundingBox.Left * videoWidth * scaleFactor);
+            rect.setAttributeNS(null, 'y', boundingBox.Top * videoHeight * scaleFactor);
+            rect.setAttributeNS(null, 'height', boundingBox.Height * videoHeight * scaleFactor);
+            rect.setAttributeNS(null, 'width', boundingBox.Width * videoWidth * scaleFactor);
+            rect.setAttributeNS(null,'style',"fill:blue;stroke:red;stroke-width:2;fill-opacity:0;z-index:2");
+            //document.getElementById('svg').appendChild(rect);
+            var text = document.createElementNS(svgns, 'text');
+            text.setAttributeNS(null, 'x', boundingBox.Left * videoWidth * scaleFactor);
+            text.setAttributeNS(null, 'y', (boundingBox.Top * videoHeight * scaleFactor)-5);
+            text.setAttributeNS(null, 'fill', 'red');
+            text.setAttributeNS(null, 'font-size', 18);
+            text.setAttributeNS(null, 'font-weight', "bold")
+            if(name===undefined){//TODO: remove this once format has been fixed.
+              name  = faces[i].Name;
+            }
+            var textNode = document.createTextNode(name);
+            text.appendChild(textNode);
+            console.log("drawing box");
+            svgArg.appendChild(rect);
+            svgArg.appendChild(text);
+			name=undefined;
+      }
+    }
+
+    function rekVideo() {
+		if(apiGatewayHost.includes("TODO:"))
+			{
+			   alert("Error: Invalid API endpoint. Please configure the correct endpoint.");
+			   return false;
+			}
+        $.ajax({
+           type: "GET",
+           url: apiGatewayUrlVideo,
+          }).then(function(data) {
+            //alert(JSON.stringify(data))
+            console.log(JSON.stringify(data));
+            var jsonResponseVideo = JSON.parse(data.replace(/\\/g, ""));
+            //$( "#video-celebrities" ).text(JSON.stringify(data).replace(/\\/g, ""));
+            var timestamp = -1;
+            var array = [];
+            //alert("here 1");
+            for(var i in jsonResponseVideo.Celebrities){
+                //alert("here 2");
+                //alert("TimeStamp:"+jsonResponse.Celebrities[i].Timestamp);
+
+                if (Math.floor(jsonResponseVideo.Celebrities[i].Timestamp/200)!=timestamp)
+                  {
+                    array = [];
+                    timestamp = Math.floor(jsonResponseVideo.Celebrities[i].Timestamp/200);
+                    console.log("TimeStamp:"+timestamp);
+                  }
+                else
+                  {
+                     //alert("-MATCH-array.push():"+array.push(jsonResponse.Celebrities[i]));
+                  }
+                array.push(jsonResponseVideo.Celebrities[i]);
+                dict[timestamp] = array;
+
+                //alert("dict[timestamp].Name:"+dict[timestamp].Name);
+
+
+                //boundingBox.Width=jsonResponse.CelebrityFaces[i].BoundingBox.Width;
+                //boundingBox.Height=jsonResponse.CelebrityFaces[i].BoundingBox.Height;
+                //boundingBox.Left=jsonResponse.CelebrityFaces[i].BoundingBox.Left;
+                //boundingBox.Top=jsonResponse.CelebrityFaces[i].BoundingBox.Top;
+            }
+
+            videoAnalysis.play();
+            window.videocelebData = data;
+          });
+
+    }
+
+    function onVideoTimeUpdate(){
+
+      videoCurrentTime = Math.floor((videoAnalysis.currentTime*1000)/200);
+      console.log("VideoCurrentTime:"+videoCurrentTime);
+      var displayedRect = document.querySelectorAll("rect");
+      removeBoxFromDisplay(svgVideo);
+      //var
+      /*for (i = 0; i < displayedRect.length; i++) {
+        document.getElementById('svgVideo').removeChild(displayedRect[i]);
+      }*/
+
+      var facesFound = dict[videoCurrentTime];
+      for(j=0;j<dict[videoCurrentTime].length;j++){
+          //alert("dict["+key+"]["+j+"].Name:"+dict[key][j].Name);
+
+            if(facesFound[j].hasOwnProperty('Celebrity')){
+      					if(facesFound[j].Celebrity.hasOwnProperty('Face'))
+      					{
+                    var tempFace = [];
+                    tempFace.push(facesFound[j].Celebrity.Face);
+                    drawBoxOnFace(tempFace, svgVideo, facesFound[j].Celebrity.Name);
+      					}
+  				  }
+            else{
+              var temp=[];
+              temp.push(facesFound[j]);
+              drawBoxOnFace(temp, svgVideo, facesFound[j].Name);
+            }
+
+        }
+
+    }
+    </script>
+
+</body>
+</html>
