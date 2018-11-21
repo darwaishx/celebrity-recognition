@@ -113,4 +113,8 @@ This module requires completion of previous modules:
 ### Web UI
 1. Download [index.html](./code/index.html).
 2. Update API endpoint with the invoke URL of your API Gateway endpoint that you create earlier
-3. Get URL for media.mp4 you uploaded earlie to S3 buket and update that index.html
+3. Get URL for media.mp4 you uploaded earlier to S3 bucket and update that index.html
+4. Play video and click on Recognize Celebrities to get information about celebrities in realtime.
+5. Under Video Analysis, see output of pre-analyzed video.
+
+![](assets/webui.png)
