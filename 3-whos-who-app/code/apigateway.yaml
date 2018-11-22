@@ -1,6 +1,6 @@
 openapi: "3.0.1"
 info:
-  title: "Rekognition"
+  title: "CelebrityRecognition"
   version: "2018-10-24T08:06:03Z"
 servers:
 - url: "https://a111111111.execute-api.us-east-1.amazonaws.com/{basePath}"
@@ -8,21 +8,21 @@ servers:
     basePath:
       default: "/prod"
 paths:
-  /ki-rekognition-celebrity:
+  /reinvent-celebrity-recognition:
     x-amazon-apigateway-any-method:
       responses:
         200:
           description: "200 response"
           content: {}
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:111111111111:function:ki-rekognition-celebrity/invocations"
+        uri: "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:111111111111:function:reinvent-celebrity-recognition/invocations"
         responses:
           .*:
             statusCode: "200"
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
         type: "aws_proxy"
-  /celebrities:
+  /GetCelebrityRecognition:
     get:
       responses:
         200:
@@ -32,7 +32,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Empty"
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:111111111111:function:ki-rekognition-celebrity/invocations"
+        uri: "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:111111111111:function:reinvent-celebrity-recognition/invocations"
         responses:
           default:
             statusCode: "200"
@@ -70,7 +70,7 @@ paths:
           application/json: "{\"statusCode\": 200}"
         passthroughBehavior: "when_no_match"
         type: "mock"
-  /celebrity:
+  /RecognizeCelebrities:
     post:
       responses:
         200:
@@ -84,7 +84,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Empty"
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:111111111111:function:ki-rekognition-celebrity/invocations"
+        uri: "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:111111111111:function:reinvent-celebrity-recognition/invocations"
         responses:
           default:
             statusCode: "200"
