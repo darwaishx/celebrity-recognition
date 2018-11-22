@@ -71,6 +71,11 @@ This module requires completion of previous modules:
   - Code entry type: Upload a zip file
   - Under Function package, click Upload and select the zip file you downloaded in earlier step
   - Click Save.
+9. Click on dropdown next to Test, and click on Configure test events
+  - For Event name: enter apigateway
+  - Replace sample JSON with JSON from [lambda-test-event.json](./code/lambda-test-event.json)
+  - Click Create
+10. Click Test. If everything is setup correctly, you should see a response with recognized celebrity name.
 
 ### API Gateway
 
