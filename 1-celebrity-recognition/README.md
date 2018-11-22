@@ -30,9 +30,6 @@ EU (Ireland) | [![Create SageMaker Instance](http://docs.aws.amazon.com/AWSCloud
 
 4. Click on the checkbox next to the stack to see additional details below and wait until CloudFormation stack has the status CREATE_COMPLETE.
 
-![](assets/cf-3.png)
-
-
 ## Open SageMaker Instance
 
 1. After CloudFormation template is complete, Click on the Output tab and click on the link for NotebookInstanceName.
@@ -45,31 +42,25 @@ EU (Ireland) | [![Create SageMaker Instance](http://docs.aws.amazon.com/AWSCloud
 
 3. You will now be redirected to the Jupyter UI.
 
-![](assets/jupyter-home.png)
-
 4. Click on New and then Terminal.
 
 ![](assets/sagemaker-new-terminal.png)
 
-5. You should now see Terminal like below:
-
-![](assets/sagemaker-terminal.png)
-
-6. In the terminal type:
+5. In the terminal type:
 - cd SageMaker
 - git clone https://github.com/darwaishx/celebrity-recognition.git
 
 ![](assets/sagemaker-gitclone.png)
 
-7. Go back to Jupyter home screen by clicking on the Jupyter logo on the top left and refresh to see the folder celebrity-recognition.
+6. Go back to Jupyter home screen by clicking on the Jupyter logo on the top left and refresh to see the folder celebrity-recognition.
 
 ![](assets/git-folder.png)
 
-8. Click on celebrity-recognition, then 1-celebrity-recognition and then CelebrityRecognition.ipynb to open the notebook.
+7. Click on celebrity-recognition, then 1-celebrity-recognition and then CelebrityRecognition.ipynb to open the notebook.
 
 ![](assets/m1-notebook.png)
 
-9. Follow the directions in the notebook to run each cell and review it's output. You will see celebrities identified in image and video as below.
+8. Follow the directions in the notebook to run each cell and review it's output. You will see celebrities identified in image and video as below.
 
 ![](assets/m1-celeb.png)
 
