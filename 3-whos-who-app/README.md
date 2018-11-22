@@ -72,9 +72,6 @@ This module requires completion of previous modules:
   - Under Function package, click Upload and select the zip file you downloaded in earlier step
   - Click Save.
 
-9. Create a test event to ensure Lambda works.
-
-
 ### API Gateway
 
 1. Go to API Gateway in AWS Console at https://console.aws.amazon.com/apigateway/
