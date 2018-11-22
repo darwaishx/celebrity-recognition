@@ -21,7 +21,7 @@ This module requires completion of previous modules:
   - Click Next.
 4. Leave default values for following steps and on last screen click Create bucket
 
-### Create Lambda Function
+### Create Lambda Function (to analyze video for celebrities)
 
 1. Go to Lambda in AWS Console at https://console.aws.amazon.com/lambda/
 2. Click on Create function.
@@ -30,7 +30,7 @@ This module requires completion of previous modules:
   - Name: reinvent-video-analysis
   - Runtime: Python 3.6
   - Role: Choose and existing role
-  - Existing role: deeplens-workshop-cloud-lambda-role
+  - Existing role: <<<Need to create role in CF template for Module 1>>>
   - Click Create function
 
 5. Copy code from [lambda-video-analysis.py](./code/lambda-video-analysis.py) and replace code under Function code
@@ -50,7 +50,7 @@ This module requires completion of previous modules:
 4. This will trigger lambda function and you should see a json file will appear in the bucket in few minutes.
 5. You can continue to next step and in few minutes refresh your S3 bucket to make sure you get the JSON file.
 
-### Create Lambda Function
+### Create Lambda Function (to analyze image for celebrities or return pre-analyzed results for video)
 
 1. Go to Lambda in AWS Console at https://console.aws.amazon.com/lambda/
 2. Click on Create function.
@@ -59,7 +59,7 @@ This module requires completion of previous modules:
   - Name: reinvent-celebrity-recognition
   - Runtime: Python 3.6
   - Role: Choose and existing role
-  - Existing role: deeplens-workshop-cloud-lambda-role
+  - Existing role: <<<Need to create role in CF template for Module 1>>>
   - Click Create function
 5. Under Environment variables, add a variable:
   - Key: s3_bucket
