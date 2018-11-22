@@ -30,7 +30,7 @@ EU (Ireland) | [![Create SageMaker Instance](http://docs.aws.amazon.com/AWSCloud
 
 4. Click on the checkbox next to the stack to see additional details below and wait until CloudFormation stack has the status CREATE_COMPLETE.
 
-## Open SageMaker Instance
+## Open Jupyter Instance
 
 1. After CloudFormation template is complete, Click on the Output tab and click on the link for NotebookInstanceName.
 
