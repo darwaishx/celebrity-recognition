@@ -82,27 +82,27 @@ This module requires completion of previous modules:
 1. Go to API Gateway in AWS Console at https://console.aws.amazon.com/apigateway/
 2. Click on Get Started (if this is first time in API GW Console) or Click on Create API
 3. Select Import from Swagger or Open API 3
-4. Copy code from [apigateway.yaml](./code/apigateway.yaml) and paste in the textbox
+4. Copy code from [apigateway.yaml](./code/apigateway.yaml) and paste it in the text box
 5. For EndPoint Type: Select Edge Optimized
-6. Under /celebrities:
+6. Under /GetCelebrityRecognition:
     - Click on GET
     - Click on Integration Request
-    - Update Lambda Region to your region if needed
-    - Lambda Function: Click on edit icon, and enter reinvent-celebrity-recognition
+    - Update Lambda Region to your region (if needed). Make sure to click on small check icon to save the selected value
+    - Lambda Function: Click on edit icon, and start typing name of your lambda function "reinvent-celebrity-recognition". As it appears in the list, select the lambda function.
     - Click on small check icon to save the selected value
     - Click OK on the prompt to add permission to Lambda function.
-7. Under /celebrity
+7. Under /RecognizeCelebrities
     - Click POST
     - Click on Integration Request
-    - Update Lambda Region to your region if needed
-    - Lambda Function: Click on edit icon, and enter reinvent-celebrity-recognition
+    - Update Lambda Region to your region (if needed). Make sure to click on small check icon to save the selected value
+    - Lambda Function: Click on edit icon, and start typing name of your lambda function "reinvent-celebrity-recognition". As it appears in the list, select the lambda function.
     - Click on small check icon to save the selected value
     - Click OK on the prompt to add permission to Lambda function.
-8. Under ki-rekognition-celebrity
+8. Under reinvent-celebrity-recognition
     - Click ANY
     - Click on Integration Request
-    - Update Lambda Region to your region if needed
-    - Lambda Function: Click on edit icon, and enter reinvent-celebrity-recognition
+    - Update Lambda Region to your region (if needed). Make sure to click on small check icon to save the selected value
+    - Lambda Function: Click on edit icon, and start typing name of your lambda function "reinvent-celebrity-recognition". As it appears in the list, select the lambda function.
     - Click on small check icon to save the selected value
     - Click OK on the prompt to add permission to Lambda function
 
