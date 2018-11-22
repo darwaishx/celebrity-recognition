@@ -30,7 +30,7 @@ This module requires completion of previous modules:
   - Name: reinvent-video-analysis
   - Runtime: Python 3.6
   - Role: Choose and existing role
-  - Existing role: <<<Need to create role in CF template for Module 1>>>
+  - Existing role: celebrity-recognition-LambdaRole-xxxxxxxxx
   - Click Create function
 
 5. Copy code from [lambda-video-analysis.py](./code/lambda-video-analysis.py) and replace code under Function code
@@ -47,7 +47,7 @@ This module requires completion of previous modules:
 1. Download [media.mp4](./assets/media.mp4)
 2. Go to S3 in AWS Console at https://s3.console.aws.amazon.com/s3/
 3. Go to S3 bucket you created earlier, and upload media.mp4 you just downloaded
-4. This will trigger lambda function and you should see a json file will appear in the bucket in few minutes.
+4. This will trigger lambda function and you should see a JSON file will appear in the bucket in few minutes.
 5. You can continue to next step and in few minutes refresh your S3 bucket to make sure you get the JSON file.
 
 ### Create Lambda Function (to analyze image for celebrities or return pre-analyzed results for video)
@@ -59,7 +59,7 @@ This module requires completion of previous modules:
   - Name: reinvent-celebrity-recognition
   - Runtime: Python 3.6
   - Role: Choose and existing role
-  - Existing role: <<<Need to create role in CF template for Module 1>>>
+  - Existing role: celebrity-recognition-LambdaRole-xxxxxxxxx
   - Click Create function
 5. Under Environment variables, add a variable:
   - Key: s3_bucket
@@ -83,7 +83,7 @@ This module requires completion of previous modules:
 2. Click on Get Started (if this is first time in API GW Console) or Click on Create API
 3. Select Import from Swagger or Open API 3
 4. Copy code from [apigateway.yaml](./code/apigateway.yaml) and paste it in the text box
-5. For EndPoint Type: Select Edge Optimized
+5. For EndPoint Type: Select Edge Optimized and click Import.
 6. Under /GetCelebrityRecognition:
     - Click on GET
     - Click on Integration Request
