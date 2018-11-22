@@ -131,7 +131,6 @@ def lambda_handler(event, context):
                 'Name': fileName,
             }
         },
-        ClientRequestToken='vj',
         FaceMatchThreshold=80,
         CollectionId=collectionId,
     )
