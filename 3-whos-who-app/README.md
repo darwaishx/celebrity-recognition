@@ -112,9 +112,9 @@ This module requires completion of previous modules:
 12. Make note of Invoke URL as you will need this in later step
 
 ### Web UI
-1. Download [index.html](./code/index.html).
+1. Download [xray.html](./code/xray.html).
 2. Update API endpoint with the invoke URL of your API Gateway endpoint that you create earlier
-3. Get URL for media.mp4 you uploaded earlier to S3 bucket and update that index.html
+3. Get URL for media.mp4 you uploaded earlier to S3 bucket and update that xray.html
 4. Play video and click on Recognize Celebrities to get information about celebrities in realtime.
 5. Under Video Analysis, see output of pre-analyzed video.
 
