@@ -44,12 +44,11 @@ This module requires completion of previous modules:
   - Click Save on the top right to save changed to Lambda function
 
 ### Analyze Test video
-1. Download media.mp4
+1. Download [media.mp4](./assets/media.mp4)
 2. Go to S3 in AWS Console at https://s3.console.aws.amazon.com/s3/
-3. Go to S3 bucket you created earlier, and upload media.mp4
-4. This will trigger lambda function and you should see a json file will appear in the bucket in few minutes. Refresh you S3 bucket to make sure you get the JSON file
-5. You can see CloudWatch logs for Lambda function you created in earlier step to see the progress or if you do not get the JSON file
-
+3. Go to S3 bucket you created earlier, and upload media.mp4 you just downloaded
+4. This will trigger lambda function and you should see a json file will appear in the bucket in few minutes.
+5. You can continue to next step and in few minutes refresh your S3 bucket to make sure you get the JSON file.
 
 ### Create Lambda Function
 
@@ -67,7 +66,7 @@ This module requires completion of previous modules:
   - Value: Name of S3 bucket you created earlier
 6. Under Basic settings:
   - Set Timeout to 10 seconds
-7. Download [lambda-celebrity-rekognition.zip](./code/lambda-celebrity-rekognition.zip)
+7. Download [lambda-celebrity-recognition.zip](./code/lambda-celebrity-recognition.zip)
 8. Under Function code:
   - Code entry type: Upload a zip file
   - Under Function package, click Upload and select the zip file you downloaded in earlier step
