@@ -30,7 +30,7 @@ This workshop has following three modules.
 
 1. [Celebrity Recognition](1-celebrity-recognition)
 2. [Recognize Custom Celebrities](2-recognize-custom-celebrities)
-3. [Prime Video Style X-Ray](3-x-ray)
+3. [Who's Who App](3-whos-who-app)
 
 ## Cleanup
 After you have completed the workshop, you can delete all of the resources using the following steps:
