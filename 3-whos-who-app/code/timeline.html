@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Rekognition Celebrity Timeline</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <style>
+    html,body {
+    height: 95%;
+    }
+  .topHeader
+    {
+      background-color: #232f3e;
+      padding: 10px;
+      border-bottom: solid 1px #cacaca;
+      color: white
+    }
+    .imgCell{
+      width: 1200px;
+    }
+    .links{
+      max-height: 100%;
+      overflow-y: scroll;
+    }
+    .labels{
+      margin: 5px;
+      padding: 10px;
+    }
+    .lblButton{
+      margin-top: 10px;
+    }
+    .mdbox{
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid h-100">
+    <!--Top Header-->
+    <div class="row topHeader">
+      <div class="col-md-6">
+        <h4>Who's Who Timeline</h4>
+      </div>
+    </div>
+    <div class="row h-100">
+      <div class="col-sm-3 links">
+        <br>
+        <div class="row alert alert-secondary ml-1 mr-1">
+          <div class="col-sm-12">
+            <div id='celebrities-timeline-title'></div>
+          </div>
+        </div>
+        <div id='celebrities-timeline'></div>
+      </div>
+      <div class="col-sm-9 links">
+        <br>
+        <div class="row alert alert-secondary ml-1 mr-1">
+          <div class="col-sm-12">
+            <div id='video-title'><h5>Media</h5></div>
+          </div>
+        </div>
+        <div class="row text-center">
+          <div class="col-sm">
+            <video id="player" width="1280" height="720" controls>
+              <source src="media.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm links">
+            <div id='image-metadata'></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+
+    var celebrities = {}
+
+    function setVideo(ts){
+        p = document.getElementById("player")
+        p.currentTime = ts/1000;
+        p.play()
+    }
+
+    function renderCelebrityTimeline(key, celebrityDetails, i){
+
+      card = '<div class="card"> <div class="card-header" id="' + 'heading' + i + '"> <h5 class="mb-0"> '
+
+      card += '<button class="btn btn-link collapsed" data-toggle="collapse"'
+
+      /*if(i == 0){
+        card += '<button class="btn btn-link" data-toggle="collapse"'
+      }
+      else {
+        card += '<button class="btn btn-link collapsed" data-toggle="collapse"'
+      }*/
+
+      card += ' data-target="#collapse' + i + '"'
+
+      card += ' aria-expanded="false"'
+      /*if(i == 0){
+        card += ' aria-expanded="true"'
+      }
+      else {
+        card += ' aria-expanded="false"'
+      }*/
+
+      card += ' aria-controls="collapse' + i + '">'
+      card += '<strong>' + celebrityDetails[0].Celebrity.Name + '</strong>'
+      card += ' </button> </h5> </div>'
+
+      card += ' <div id="collapse' + i + '" class="collapse"'
+      /*if(i == 0){
+        card += ' <div id="collapse' + i + '" class="collapse show"'
+      }
+      else {
+        card += ' <div id="collapse' + i + '" class="collapse"'
+      }*/
+
+      card += ' aria-labelledby="heading' + i + '" data-parent="#accordion"> <div class="card-body">'
+
+      card += '<strong>Fun Facts:</strong><br><a target="_blank" href="' + celebrityDetails[0].Celebrity.Urls[0] + '">' + celebrityDetails[0].Celebrity.Urls[0] + '<a><br><br><strong>Timeline:</strong><hr/>'
+
+      pt = -1
+      for(ei in celebrityDetails){
+        ct = Math.round(celebrityDetails[ei].Timestamp/1000)
+        if(pt !== ct){
+          card += '<button type="button" class="btn btn-primary" style="width:100%" onclick="setVideo(' + celebrityDetails[ei].Timestamp + ');">' + Math.round(celebrityDetails[ei].Timestamp/1000) + '</button><br><br>'
+        }
+        pt = ct
+      }
+
+      card += ' </div> </div>'
+
+      return card;
+    }
+
+    function parseCelebrities(){
+      window.uniqueCelebs = {}
+      for (ec in celebrities.Celebrities){
+        c = celebrities.Celebrities[ec]
+        if(c.Celebrity && c.Celebrity.Id){
+          if(c.Celebrity.Id in uniqueCelebs){
+            uniqueCelebs[c.Celebrity.Id].push(c)
+          }
+          else{
+            uniqueCelebs[c.Celebrity.Id] = [c]
+          }
+        }
+      }
+    }
+
+    function renderTimeline(){
+
+      parseCelebrities();
+
+      $("#celebrities-timeline-title").html("<h5>Recognized Celebrities (" + Object.keys(uniqueCelebs).length + ")</h5>");
+
+      timelineui = '<div id="accordion">'
+
+      i = 0
+      for(key in uniqueCelebs){
+            timelineui += renderCelebrityTimeline(key, uniqueCelebs[key], i)
+          i++;
+      }
+
+      timelineui += '</div>'
+
+      $("#celebrities-timeline").html(timelineui);
+    }
+
+    function startApp(){
+      var apiGatewayBaseUrl = 'TODO: REPLACE WITH INVOKE URL OF YOUR API GATEWAY ENDPOINT-EXAMPLE: https://XXXXXX.execute-api.us-east-2.amazonaws.com/prod';
+    	var apiGatewayUrl = apiGatewayBaseUrl+'/GetCelebrityRecognition?v=media.mp4';
+
+      $.ajax({
+         type: "GET",
+         url: apiGatewayUrl,
+        }).then(function(data) {
+          //var jsonResponseVideo = JSON.parse(data.replace(/\\/g, ""));
+          celebrities = JSON.parse(data)
+          if(celebrities.Celebrities && celebrities.Celebrities.length > 0){
+              renderTimeline();
+          }
+        });
+    }
+
+    startApp()
+
+    </script>
+</body>
+</html>
