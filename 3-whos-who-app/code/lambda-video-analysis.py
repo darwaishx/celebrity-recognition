@@ -60,14 +60,6 @@ def mergeResults(rekognition, dynamodb, ddbTableName, cjid, fjid):
     recognizedCelebrities = {}
     celebsData = {}
 
-    for rc in c['Celebrities']:
-        rc_cl = float(rc['Celebrity']['Confidence'])
-        if(rc_cl > 80):
-            if(rc['Timestamp'] in recognizedCelebrities):
-                recognizedCelebrities[rc['Timestamp']].append(rc)
-            else:
-                recognizedCelebrities[rc['Timestamp']] = [rc]
-
     for rp in f['Persons']:
         if('Face' in rp['Person']):
             rp_ts = rp['Timestamp']
@@ -83,14 +75,40 @@ def mergeResults(rekognition, dynamodb, ddbTableName, cjid, fjid):
                     cdata = getDynamoDBItem(rp_faceMatch_ExternalImageId, dynamodb, ddbTableName)
                     celebsData[rp_faceMatch_ExternalImageId] = cdata
 
+                rf = {}
+                rf['Timestamp'] = rp_ts
+                rf['Celebrity'] = {}
+                rf['Celebrity']['Id'] = rp_faceMatch_ExternalImageId
+                rf['Celebrity']['Name'] = cdata[1]
+                rf['Celebrity']['Urls'] = [cdata[2]]
+                rf['Celebrity']['Confidence'] = rp_faceMatch_Similarity
+                if('BoundingBox' in rp['Person']):
+                    rf['Celebrity']['BoundingBox'] = rp['Person']['BoundingBox']
+                rf['Celebrity']['Face'] = {}
+                rf['Celebrity']['Face']['BoundingBox'] = rp_bb
 
-                rf = {'Timestamp' : rp_ts, 'Id' : rp_faceMatch_ExternalImageId, 'Name' : cdata[1], 'Url' : cdata[2],
-                      'Confidence' : rp_faceMatch_Similarity, 'BoundingBox' : rp_bb}
+                #rf = {'Timestamp' : rp_ts, 'Id' : rp_faceMatch_ExternalImageId, 'Name' : cdata[1], 'Url' : cdata[2],
+                #      'Confidence' : rp_faceMatch_Similarity, 'BoundingBox' : rp_bb}
 
                 if(rp_ts in recognizedCelebrities):
                     recognizedCelebrities[rp_ts].append(rf)
                 else:
                     recognizedCelebrities[rp_ts] = [rf]
+
+    for rc in c['Celebrities']:
+        rc_cl = float(rc['Celebrity']['Confidence'])
+        if(rc_cl > 90):
+            if(rc['Timestamp'] in recognizedCelebrities):
+
+                celebExist = False
+                for ec in recognizedCelebrities[rc['Timestamp']]:
+                    if(ec['Celebrity']['Id'] == rc['Celebrity']['Id']):
+                        celebExist = True
+                        break;
+                if(not celebExist):
+                    recognizedCelebrities[rc['Timestamp']].append(rc)
+            else:
+                recognizedCelebrities[rc['Timestamp']] = [rc]
 
     finalList = []
 
@@ -131,7 +149,7 @@ def lambda_handler(event, context):
                 'Name': fileName,
             }
         },
-        FaceMatchThreshold=80,
+        FaceMatchThreshold=90,
         CollectionId=collectionId,
     )
 
