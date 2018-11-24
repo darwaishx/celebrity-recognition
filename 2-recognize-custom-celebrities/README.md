@@ -1,5 +1,5 @@
 # Recognize Custom Celebrities
-In this module you will learn how to use Amazon Rekognition to recognize custom celebrities. You will index faces of custom celebrities and then analyze few images and video to recognize custom celebrities.
+In this module you will learn how to use Amazon Rekognition to recognize other public figures that Rekognition celebrity API does does not detect today. You will index faces of custom celebrities and then analyze few images and video to recognize those celebrities.
 
 1. Open SageMaker instance you created in previous module.
 
@@ -18,4 +18,4 @@ In this module you will learn how to use Amazon Rekognition to recognize custom 
 ![](assets/custom-video.png)
 
 ## Completion
-You have successfully created Rekognition collection, indexed faces and recognized custom celebrities in images and videos. In the next module, [Who's Who App](../3-whos-who-app), you will learn how to combine both RecognizeCelebrity and SearchFaceByImage to build a Prime Video X-Ray style app which can recognize both mainstream and custom celebrities.
+You have successfully created Rekognition collection, indexed faces and recognized public figures in images and videos. In the next module, [Who's Who App](../3-whos-who-app), you will learn how to combine both RecognizeCelebrity and SearchFaceByImage to build a web app which can recognize public figures.

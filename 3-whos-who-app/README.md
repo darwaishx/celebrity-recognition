@@ -1,6 +1,6 @@
 # Build Who's Who App
 
-In this module we will build an end to end solution to recognize mainstream and custom celebrities in images and videos.
+In this module we will build an end to end solution to recognize public figures in images and videos.
 
 ![](assets/arch.png)
 
