@@ -34,5 +34,5 @@ This workshop has following three modules.
 
 ## Cleanup
 After you have completed the workshop, you can delete all of the resources using the following steps:
-1. Delete all Lambda functions created manually
-2. Delete all CloudFormation stacks created in the first module
+1. Delete CloudFormation stacks created in the first module
+2. Delete all Lambda functions and S3 bucket
