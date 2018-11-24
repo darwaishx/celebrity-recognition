@@ -111,22 +111,14 @@ This module requires completion of previous modules:
 11. For Stage name: Enter prod and click Deploy.
 12. Make note of Invoke URL as you will need this in later step
 
-### Web UI with Timeline
-1. Download [timeline.html](./code/timeline.html).
-2. At line 182, update apiGatewayBaseUrl with invoke URL of your API Gateway endpoint you noted in earlier step. Example: https://XXXXXX.execute-api.us-east-2.amazonaws.com/prod
-3. Upload modified timeline.html to your S3 bucket where you uploaded media.mp4 in earlier step
-4. Make both timeline.html and media.mp4 public so you can view web app in the browser.
-5. From S3 bucket, click on timeline.html to view it in browser
-6. You should see recognized celebrities along with their timeline in the video. Click on any of the recognized celebrities and click on one of timeline elements to jump to that part of the video.
+### Who's Who Web UI
+1. Download [whoswho.html](./code/whoswho.html).
+2. At line 89, update apiGatewayBaseUrl with invoke URL of your API Gateway endpoint you noted in earlier step. Example: https://XXXXXX.execute-api.us-east-2.amazonaws.com/prod
+3. Upload modified whoswho.html to your S3 bucket where you uploaded media.mp4 in earlier step
+4. Make both whoswho.html and media.mp4 public so you can view web app in the browser.
+5. From S3 bucket, click on whoswho.html to view it in browser
+6. You should see recognized celebrities along with their timeline in  the left pane.
+7. While video is playing, you should see celebrity arrival timeline above the video.
+8. Anytime while video is playing, click on Recognize Celebrity button to recognize celebrities in the frame.
 
 ![](assets/webui-timeline.png)
-
-### X-Ray style Web UI
-1. Download [xray.html](./code/xray.html).
-2. Update API endpoint with the invoke URL of your API Gateway endpoint that you create earlier
-3. Upload modified xray.html to you S3 bucket where you uploaded media.mp4 in earlier step and make it public
-4. From S3 bucket, click on xray.html to view it in browser
-4. Play video and click on Recognize Celebrities to get information about celebrities in realtime
-5. Under Video Analysis, see output of pre-analyzed video
-
-![](assets/webui.png)

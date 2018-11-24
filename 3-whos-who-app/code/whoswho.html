@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Rekognition Celebrity Timeline</title>
+  <title>Celebrity Recognition</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -45,7 +45,7 @@
     <!--Top Header-->
     <div class="row topHeader">
       <div class="col-md-6">
-        <h4>Who's Who Timeline</h4>
+        <h4>Who's Who in Media - Celebrity Recognition</h4>
       </div>
     </div>
     <div class="row h-100">
@@ -60,22 +60,24 @@
       </div>
       <div class="col-sm-9 links">
         <br>
-        <div class="row alert alert-secondary ml-1 mr-1">
-          <div class="col-sm-12">
-            <div id='video-title'><h5>Media</h5></div>
+        <div class="row alert alert-secondary ml-1 mr-1 align-middle">
+          <div class="col-sm-12 align-middle">
+            <button type="button" id="btnRecognizeCelebrities" onclick="recognizeCelebrities()" class="btn btn-primary">Recognize Celebrities</button>&nbsp;&nbsp;&nbsp;
+            <span id="infoCard" class="align-middle"></span>
           </div>
         </div>
         <div class="row text-center">
           <div class="col-sm">
-            <video id="player" width="1280" height="720" controls>
+            <video id="player" width="1280" height="720" controls ontimeupdate="onVideoTimeUpdate()">
               <source src="media.mp4" type="video/mp4">
             Your browser does not support the video tag.
             </video>
+            <br>
           </div>
         </div>
         <div class="row">
           <div class="col-sm links">
-            <div id='image-metadata'></div>
+            <canvas id="canvas" width="1280px" height="720px" style="display: none" crossorigin="anonymous"></canvas>
           </div>
         </div>
       </div>
@@ -83,51 +85,96 @@
   </div>
   <script>
 
+    //Update BaseURL with Invoke URL of your API Gateway Endpoint
+    var apiGatewayBaseUrl = 'https://8kp7jh2rgi.execute-api.us-east-2.amazonaws.com/prod';
+
+    var apiGatewayVideoUrl = apiGatewayBaseUrl + '/GetCelebrityRecognition?v=media.mp4';
+    var apiGatewayImageUrl = apiGatewayBaseUrl + '/RecognizeCelebrities';
+
+    var player = document.getElementById("player")
+    var canvas = document.getElementById("canvas")
+    var context=canvas.getContext('2d');
+    var btnRecognize = document.getElementById("btnRecognizeCelebrities")
+    var infoCard = document.getElementById("infoCard")
+
     var celebrities = {}
+    celebrityArrival = []
+
+    function onVideoTimeUpdate(){
+      currentTime = player.currentTime*1000
+      cinfo = ""
+      if(celebrityArrival){
+        for(ec in celebrityArrival){
+          celeb = celebrityArrival[ec].Celebrity
+          if(celeb.Timestamp < currentTime){
+            cinfo += '[&nbsp;<a target="_blank" href="' + celeb.Celebrity.Urls + '">' + celeb.Celebrity.Name + '</a>&nbsp;]&nbsp;&nbsp;&nbsp;'
+          }
+          else{
+            break;
+          }
+        }
+        if(cinfo){
+          cinfo  = 'Celebrity Arrival: ' + cinfo
+        }
+        infoCard.innerHTML = cinfo
+      }
+    }
+
+    function recognizeCelebrities(){
+      player.pause();
+      btnRecognize.innerText = "Recognizing celebrities..."
+      btnRecognize.disabled =true;
+
+      context.fillRect(0,0,canvas.width,canvas.height);
+      context.drawImage(player,0,0,canvas.width,canvas.height);
+
+      var dataURL = canvas.toDataURL('image/jpeg', 1.0);
+      dataURL = dataURL.replace(/^data:image\/(png|jpg|jpeg);base64,/, "")
+
+      $.ajax({
+         type: "POST",
+         url: apiGatewayImageUrl,
+         data: dataURL
+        }).then(function(data) {
+          infoCard.innerHTML = "";
+          var outputText = JSON.stringify(data).replace(/\\/g, "");
+          var jsonResponse = JSON.parse(data.replace(/\\/g, ""));
+          var displayURL = "";
+          var cinfo = ""
+          if(jsonResponse.CelebrityFaces && jsonResponse.CelebrityFaces.length!=0)
+          {
+            for (ef in jsonResponse.CelebrityFaces){
+              celeb = jsonResponse.CelebrityFaces[ef]
+              if(celeb.Name && celeb.Urls){
+                  cinfo += '[&nbsp;<a target="_blank" href="' + celeb.Urls + '">' + celeb.Name + '</a>&nbsp;]&nbsp;&nbsp;&nbsp;'
+              }
+            }
+            infoCard.innerHTML = cinfo
+          }
+          else{
+            infoCard.innerHTML = "No celebrities detected";
+          }
+          btnRecognize.disabled =false;
+          btnRecognize.innerText = "Recognize Celebrities"
+        });
+    }
 
     function setVideo(ts){
-        p = document.getElementById("player")
-        p.currentTime = ts/1000;
-        p.play()
+        player.currentTime = ts/1000;
+        player.play()
     }
 
     function renderCelebrityTimeline(key, celebrityDetails, i){
 
       card = '<div class="card"> <div class="card-header" id="' + 'heading' + i + '"> <h5 class="mb-0"> '
-
       card += '<button class="btn btn-link collapsed" data-toggle="collapse"'
-
-      /*if(i == 0){
-        card += '<button class="btn btn-link" data-toggle="collapse"'
-      }
-      else {
-        card += '<button class="btn btn-link collapsed" data-toggle="collapse"'
-      }*/
-
       card += ' data-target="#collapse' + i + '"'
-
       card += ' aria-expanded="false"'
-      /*if(i == 0){
-        card += ' aria-expanded="true"'
-      }
-      else {
-        card += ' aria-expanded="false"'
-      }*/
-
       card += ' aria-controls="collapse' + i + '">'
       card += '<strong>' + celebrityDetails[0].Celebrity.Name + '</strong>'
       card += ' </button> </h5> </div>'
-
       card += ' <div id="collapse' + i + '" class="collapse"'
-      /*if(i == 0){
-        card += ' <div id="collapse' + i + '" class="collapse show"'
-      }
-      else {
-        card += ' <div id="collapse' + i + '" class="collapse"'
-      }*/
-
       card += ' aria-labelledby="heading' + i + '" data-parent="#accordion"> <div class="card-body">'
-
       card += '<strong>Fun Facts:</strong><br><a target="_blank" href="' + celebrityDetails[0].Celebrity.Urls[0] + '">' + celebrityDetails[0].Celebrity.Urls[0] + '<a><br><br><strong>Timeline:</strong><hr/>'
 
       pt = -1
@@ -154,6 +201,7 @@
           }
           else{
             uniqueCelebs[c.Celebrity.Id] = [c]
+            celebrityArrival.push({'Timestamp' : c.Timestamp , 'Celebrity' : c })
           }
         }
       }
@@ -179,14 +227,11 @@
     }
 
     function startApp(){
-      var apiGatewayBaseUrl = 'TODO: REPLACE WITH INVOKE URL OF YOUR API GATEWAY ENDPOINT-EXAMPLE: https://XXXXXX.execute-api.us-east-2.amazonaws.com/prod';
-    	var apiGatewayUrl = apiGatewayBaseUrl+'/GetCelebrityRecognition?v=media.mp4';
 
       $.ajax({
          type: "GET",
-         url: apiGatewayUrl,
+         url: apiGatewayVideoUrl,
         }).then(function(data) {
-          //var jsonResponseVideo = JSON.parse(data.replace(/\\/g, ""));
           celebrities = JSON.parse(data)
           if(celebrities.Celebrities && celebrities.Celebrities.length > 0){
               renderTimeline();
