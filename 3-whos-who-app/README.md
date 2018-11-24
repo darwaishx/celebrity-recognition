@@ -121,4 +121,4 @@ This module requires completion of previous modules:
 7. While video is playing, you should see celebrity arrival timeline above the video.
 8. Anytime while video is playing, click on Recognize Celebrity button to recognize celebrities in the frame.
 
-![](assets/webui.png)
+![](assets/appui.png)
