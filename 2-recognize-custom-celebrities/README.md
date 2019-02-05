@@ -3,7 +3,7 @@ In this module you will learn how to use Amazon Rekognition to recognize other p
 
 1. Open SageMaker instance you created in previous module.
 
-2. From home scree, click on folder celebrity-recognition and then 2-recognize-custom-celebrities.
+2. From home screen, click on folder celebrity-recognition and then 2-recognize-custom-celebrities.
 
 ![](assets/sagemaker-notebook-folder.png)
 
